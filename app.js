@@ -1,13 +1,9 @@
 const express = require("express");
-const app = express();
 const path = require('path');
 const router = express.Router();
 const handlebars = require("express-handlebars");
 
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
-app.use(express.static(__dirname + "public"));
-app.use('/api/producto', router);
+const app = express();
 
 // Config handlebars
 app.engine("hbs", handlebars({
@@ -22,23 +18,25 @@ app.set("view engine", "hbs");
 // Directorio archivos plantilla
 app.set("views", "./views");
 
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+app.use(express.static(path.join(__dirname + "public")));
+app.use('/api/producto', router);
+
 
 // Lista de productos
 
-let productos = []; 
+const productos = []; 
 
 
 // Rutas
 
-app.get("/", (req, res) => {
-    //res.sendFile(path.join(__dirname + '/views/index.hbs'));
-    res.render("main", { products: productos });
-    //res.json(productos); 
+router.get("/", (req, res) => {
+    res.render("main", { productos: productos });
 })
 
 router.get('/addproduct', (req, res)=>{
     res.sendFile(__dirname+'/public/addproduct.html');
-    //res.redirect(__dirname+'/public/addproduct.html');
 })
 
 router.post('/', (req, res) => {
@@ -57,7 +55,7 @@ router.post('/', (req, res) => {
     res.sendStatus(201);
 })
 
-app.get('/:id', (req, res)=>{ //get info by id
+router.get('/:id', (req, res)=>{ //get info by id
     const { id } = req.params;
 
     const producto = productos.find(producto => producto.id == id);
@@ -69,7 +67,7 @@ app.get('/:id', (req, res)=>{ //get info by id
     res.json(producto);
 })
 
-app.patch('/:id', (req, res) => {
+router.patch('/:id', (req, res) => {
 
     const { id } = req.params;
 
@@ -89,7 +87,7 @@ app.patch('/:id', (req, res) => {
 })
 
 
-app.delete('/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     const { id } = req.params;
 
     const producto = productos.find(producto => producto.id == id);
