@@ -1,0 +1,29 @@
+html
+    head 
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible" content="ie=edge")
+        link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css")
+        script(src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj")
+        script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" )
+        title Desafio 11 - PUG
+    
+    body
+        h1 Vista de productos
+
+        table(class="table table-stripped")
+            tr 
+                th ID
+                th Nombre
+                th Precio
+                th Foto 
+            
+            each producto in productos
+                tr 
+                    th= producto.id 
+                    th= producto.title
+                    th= producto.price 
+                    th 
+                        img(src=producto.thumbnail)
+            else
+                th(class="alert alert-warning") No hay productos
