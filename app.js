@@ -6,9 +6,8 @@ const handlebars = require("express-handlebars");
 const app = express();
 
 // Config handlebars
-app.set("views", "./views");
-//app.set("views", path.join(__dirname, "Views"));
 app.set("view engine", "hbs");
+app.set("views", "./views");
 
 app.engine("hbs", handlebars({
     extname: ".hbs",
@@ -30,14 +29,11 @@ const productos = [];
 // Rutas
 
 router.get("/", (req, res) => {
-    //res.sendFile(path.join(__dirname + '/views/index.hbs'));
     res.render("main", { productos: productos});
-    //res.json(productos); 
 })
 
 router.get('/addproduct', (req, res)=>{
     res.sendFile(__dirname+'/public/addproduct.html');
-    //res.redirect(__dirname+'/public/addproduct.html');
 })
 
 router.post('/', (req, res) => {
