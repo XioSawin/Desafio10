@@ -4,14 +4,14 @@ const router = express.Router();
 
 const app = express();
 
+// Config handlebars
 app.set("views", "./views");
-app.set("view engine", "ejs");
+app.set("view engine", "pug");
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname + "public")));
 app.use('/api/producto', router);
-
 
 // Lista de productos
 
@@ -21,7 +21,7 @@ const productos = [];
 // Rutas
 
 router.get("/", (req, res) => {
-    res.render("pages/index", { productos: productos });
+    res.render("main.pug", { "productos": productos });
 })
 
 router.get('/addproduct', (req, res)=>{
