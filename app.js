@@ -1,22 +1,11 @@
 const express = require("express");
 const path = require('path');
 const router = express.Router();
-const handlebars = require("express-handlebars");
 
 const app = express();
 
-// Config handlebars
-app.engine("hbs", handlebars({
-    extname: ".hbs",
-    defaultLayout: 'index.hbs',
-    layoutsDir: __dirname + "/views/layouts/",
-    partialsDir: __dirname + '/views/partials/'
-}));
-
-// Motor de plantilla
-app.set("view engine", "hbs");
-// Directorio archivos plantilla
 app.set("views", "./views");
+app.set("view engine", "ejs");
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -32,7 +21,7 @@ const productos = [];
 // Rutas
 
 router.get("/", (req, res) => {
-    res.render("main", { productos: productos });
+    res.render("pages/index", { productos: productos });
 })
 
 router.get('/addproduct', (req, res)=>{
