@@ -4,9 +4,9 @@ const router = express.Router();
 
 const app = express();
 
-// Config handlebars
+// Config 
 app.set("views", "./views");
-app.set("view engine", "pug");
+app.set("view engine", "ejs");
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -21,7 +21,7 @@ const productos = [];
 // Rutas
 
 router.get("/", (req, res) => {
-    res.render("main.pug", { "productos": productos });
+    res.render("pages/index", { productos: productos });
 })
 
 router.get('/addproduct', (req, res)=>{
